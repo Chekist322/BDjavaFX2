@@ -1,24 +1,24 @@
 package main.model;
 
 public class Doctor {
-    int id;
+    int idDoctor;
     String name;
     String surname;
     int profession;
 
-    public Doctor(int id, String name, String surname, int profession) {
-        this.id = id;
+    public Doctor(int idDoctor, String name, String surname, int profession) {
+        this.idDoctor = idDoctor;
         this.name = name;
         this.surname = surname;
         this.profession = profession;
     }
 
-    public int getId() {
-        return id;
+    public int getIdDoctor() {
+        return idDoctor;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdDoctor(int idDoctor) {
+        this.idDoctor = idDoctor;
     }
 
     public String getName() {

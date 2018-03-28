@@ -1,34 +1,34 @@
 package main.model;
 
 public class Event {
-    int id;
-    String dateTime;
+    int idEvent;
+    String time;
     int patient;
     int doctor;
     int procedure;
 
     public Event(int id, String dateTime, int patient, int doctor, int procedure) {
-        this.id = id;
-        this.dateTime = dateTime;
+        this.idEvent = id;
+        this.time = dateTime;
         this.patient = patient;
         this.doctor = doctor;
         this.procedure = procedure;
     }
 
-    public int getId() {
-        return id;
+    public int getIdEvent() {
+        return idEvent;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdEvent(int idEvent) {
+        this.idEvent = idEvent;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public String getTime() {
+        return time;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public int getPatient() {

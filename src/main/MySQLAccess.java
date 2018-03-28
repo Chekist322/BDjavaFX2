@@ -32,7 +32,7 @@ public class MySQLAccess {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connect = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/"
+                    .getConnection("jdbc:mysql://127.0.0.1:3306/"
                             + dataBaseName+ "?user=" + login + "&password="
                             + password + "&verifyServerCertificate=false"+
                             "&useSSL=false"+
@@ -55,12 +55,12 @@ public class MySQLAccess {
         DatabaseMetaData md = connect.getMetaData();
         resultSet = md.getTables(null, null, "%", null);
         while (resultSet != null && resultSet.next()) {
-            if (resultSet.getString(3).equals(Main2.Tables.Doctor.name()) ||
-                    resultSet.getString(3).equals(Main2.Tables.Event.name()) ||
-                    resultSet.getString(3).equals(Main2.Tables.Illness.name()) ||
-                    resultSet.getString(3).equals(Main2.Tables.Patient.name()) ||
-                    resultSet.getString(3).equals(Main2.Tables.PatientCard.name()) ||
-                    resultSet.getString(3).equals(Main2.Tables.Profession.name()))
+            if (resultSet.getString(3).equals(Main2.Tables.doctor.name()) ||
+                    resultSet.getString(3).equals(Main2.Tables.event.name()) ||
+                    resultSet.getString(3).equals(Main2.Tables.illness.name()) ||
+                    resultSet.getString(3).equals(Main2.Tables.patient.name()) ||
+                    resultSet.getString(3).equals(Main2.Tables.patientcard.name()) ||
+                    resultSet.getString(3).equals(Main2.Tables.profession.name()))
             tables.add(resultSet.getString(3));
         }
         return tables;
@@ -83,66 +83,71 @@ public class MySQLAccess {
         }
     }
 
-    public ObservableList<?> getData(String tableName) throws SQLException {
-        ObservableList<?> data = FXCollections.observableArrayList();
-        try {
-            ResultSet rs = statement.executeQuery("SELECT * FROM " + tableName);
-                switch (tableName) {
-                    case "Doctor":
-                        ObservableList<Doctor> doctors = FXCollections.observableArrayList();
-                        while (rs != null && rs.next()) {
-                            doctors.add(new Doctor(rs.getInt(1),
-                                    rs.getString(2),
-                                    rs.getString(3),
-                                    rs.getInt(4)));
-                        }
-                        return doctors;
-                    case "Event":
-                        ObservableList<Event> events = FXCollections.observableArrayList();
-                        while (rs != null && rs.next()) {
-                            events.add(new Event(rs.getInt(1),
-                                    rs.getString(2),
-                                    rs.getInt(3),
-                                    rs.getInt(4),
-                                    rs.getInt(5)));
-                        }
-                        return events;
-                    case "Illness":
-                        ObservableList<Illness> illnesses = FXCollections.observableArrayList();
-                        while (rs != null && rs.next()) {
-                            illnesses.add(new Illness(rs.getInt(1),
-                                    rs.getString(2)));
-                        }
-                        return illnesses;
-                    case "Patient":
-                        ObservableList<Patient> patients = FXCollections.observableArrayList();
-                        while (rs != null && rs.next()) {
-                            patients.add(new Patient(rs.getInt(1),
-                                    rs.getString(2),
-                                    rs.getString(3)));
-                        }
-                        return patients;
-                    case "PatientCard":
-                        ObservableList<PatientCard> cards = FXCollections.observableArrayList();
-                        while (rs != null && rs.next()) {
-                            cards.add(new PatientCard(rs.getInt(1),
-                                    rs.getInt(2),
-                                    rs.getInt(3)));
-                        }
-                        return cards;
-                    case "Profession":
-                        ObservableList<Profession> professions = FXCollections.observableArrayList();
-                        while (rs != null && rs.next()) {
-                            professions.add(new Profession(rs.getInt(1),
-                                    rs.getString(2),
-                                    rs.getInt(3)));
-                        }
-                        return professions;
-            }
-            return data;
-        } catch (SQLSyntaxErrorException e) {
-            e.printStackTrace();
-            return data;
+    public ObservableList<Doctor> getDoctorData(String tableName) throws SQLException {
+        ResultSet rs = statement.executeQuery("SELECT * FROM " + tableName);
+        ObservableList<Doctor> doctors = FXCollections.observableArrayList();
+        while (rs != null && rs.next()) {
+            doctors.add(new Doctor(rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getInt(4)));
         }
+        return doctors;
+    }
+
+    public ObservableList<Event> getEventData(String tableName) throws SQLException {
+        ResultSet rs = statement.executeQuery("SELECT * FROM " + tableName);
+        ObservableList<Event> events = FXCollections.observableArrayList();
+        while (rs != null && rs.next()) {
+            events.add(new Event(rs.getInt(1),
+                    rs.getString(2),
+                    rs.getInt(3),
+                    rs.getInt(4),
+                    rs.getInt(5)));
+        }
+        return events;
+    }
+
+    public ObservableList<Illness> getIllnessData(String tableName) throws SQLException {
+        ResultSet rs = statement.executeQuery("SELECT * FROM " + tableName);
+        ObservableList<Illness> illnesses = FXCollections.observableArrayList();
+        while (rs != null && rs.next()) {
+            illnesses.add(new Illness(rs.getInt(1),
+                    rs.getString(2)));
+        }
+        return illnesses;
+    }
+
+    public ObservableList<Patient> getPatientData(String tableName) throws SQLException {
+        ResultSet rs = statement.executeQuery("SELECT * FROM " + tableName);
+        ObservableList<Patient> patients = FXCollections.observableArrayList();
+        while (rs != null && rs.next()) {
+            patients.add(new Patient(rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3)));
+        }
+        return patients;
+    }
+
+    public ObservableList<PatientCard> getPatientCardData(String tableName) throws SQLException {
+        ResultSet rs = statement.executeQuery("SELECT * FROM " + tableName);
+        ObservableList<PatientCard> patients = FXCollections.observableArrayList();
+        while (rs != null && rs.next()) {
+            patients.add(new PatientCard(rs.getInt(1),
+                    rs.getInt(2),
+                    rs.getInt(3)));
+        }
+        return patients;
+    }
+
+    public ObservableList<Profession> getProfessionData(String tableName) throws SQLException {
+        ResultSet rs = statement.executeQuery("SELECT * FROM " + tableName);
+        ObservableList<Profession> professions = FXCollections.observableArrayList();
+        while (rs != null && rs.next()) {
+            professions.add(new Profession(rs.getInt(1),
+                    rs.getString(2),
+                    rs.getInt(3)));
+        }
+        return professions;
     }
 }
