@@ -1,15 +1,11 @@
 package main;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
@@ -19,12 +15,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import main.model.*;
-import main.model.Event;
 
-import javax.swing.*;
-import java.awt.*;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.Optional;
 
@@ -80,7 +72,7 @@ public class Main2 extends Application {
                 tableViewPatient.getColumns().clear();
                 tableViewPatientCard.getColumns().clear();
                 tableViewProfession.getColumns().clear();
-                switch (cb.getItems().get((Integer) number2).toString()) {
+                switch (cb.getItems().get((Integer) number2).toString().toLowerCase()) {
                     case "doctor":
                         currentTableName = "doctor";
                         ObservableList<Doctor> dataDoctor = dao.getDoctorData(cb.getItems().get((Integer) number2).toString());
@@ -129,10 +121,7 @@ public class Main2 extends Application {
                         vBox.getChildren().add(tableViewProfession);
                         vBox.getChildren().removeAll(tableViewDoctor, tableViewEvent, tableViewPatient, tableViewPatientCard, tableViewIllness);
                         break;
-
-
                 }
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -140,7 +129,6 @@ public class Main2 extends Application {
 
         addButton.setOnMouseClicked(event -> {
             if (currentTableName.equals("doctor")) {
-
                 final StackPane rootAdd = new StackPane();
 
                 Stage secondStage = new Stage();
@@ -491,4 +479,3 @@ public class Main2 extends Application {
         launch(args);
     }
 }
-
