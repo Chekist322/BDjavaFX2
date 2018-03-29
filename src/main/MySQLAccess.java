@@ -150,4 +150,27 @@ public class MySQLAccess {
         }
         return professions;
     }
+
+    public void updateDoctorOnPosition(Doctor doctor) throws SQLException {
+        PreparedStatement prep = connect.prepareStatement("UPDATE Doctor SET name = ?, surname = ?, profession = ? WHERE idDoctor=?");
+        prep.setString(1, doctor.getName());
+        prep.setString(2, doctor.getSurname());
+        prep.setInt(3, doctor.getProfession());
+        prep.setInt(4, doctor.getIdDoctor());
+        prep.executeUpdate();
+    }
+
+    public void addDoctorOnPosition(Doctor doctor) throws SQLException {
+        PreparedStatement prep = connect.prepareStatement("INSERT INTO Doctor (name, surname, profession) VALUES (?, ?, ?)");
+        prep.setString(1, doctor.getName());
+        prep.setString(2, doctor.getSurname());
+        prep.setInt(3, doctor.getProfession());
+        prep.executeUpdate();
+    }
+
+    public void deleteDoctorOnPosition(int id) throws SQLException {
+        PreparedStatement prep = connect.prepareStatement("DELETE FROM Doctor WHERE idDoctor=?");
+        prep.setInt(1, id);
+        prep.executeUpdate();
+    }
 }
