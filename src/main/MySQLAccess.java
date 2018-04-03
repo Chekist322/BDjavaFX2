@@ -55,12 +55,12 @@ public class MySQLAccess {
         DatabaseMetaData md = connect.getMetaData();
         resultSet = md.getTables(null, null, "%", null);
         while (resultSet != null && resultSet.next()) {
-            if (resultSet.getString(3).equals(Main2.Tables.doctor.name()) ||
-                    resultSet.getString(3).equals(Main2.Tables.event.name()) ||
-                    resultSet.getString(3).equals(Main2.Tables.illness.name()) ||
-                    resultSet.getString(3).equals(Main2.Tables.patient.name()) ||
-                    resultSet.getString(3).equals(Main2.Tables.patientcard.name()) ||
-                    resultSet.getString(3).equals(Main2.Tables.profession.name()))
+            if (resultSet.getString(3).toLowerCase().equals(Main2.Tables.doctor.name()) ||
+                    resultSet.getString(3).toLowerCase().equals(Main2.Tables.event.name()) ||
+                    resultSet.getString(3).toLowerCase().equals(Main2.Tables.illness.name()) ||
+                    resultSet.getString(3).toLowerCase().equals(Main2.Tables.patient.name()) ||
+                    resultSet.getString(3).toLowerCase().equals(Main2.Tables.patientcard.name()) ||
+                    resultSet.getString(3).toLowerCase().equals(Main2.Tables.profession.name()))
             tables.add(resultSet.getString(3));
         }
         return tables;
